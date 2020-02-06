@@ -1,6 +1,8 @@
 # cloud-hero-solutions
 This is a workspace for me to store CLI/API-implemented solutions to GCP Cloud Hero challenges. Ideally, you'd run these from the Cloud Shell within the [Google Cloud Console][gcp-console]. Currently this only contains details on the first two exercises, `GSP501` and `GSP502`, and will grow organically.
 
+The layout for this document is to provide context around the simple script file that contains only the config required to complete the labs. It is comprised of a mix of instructions from the Qwiklabs exercises themselves, with the config to complete those instructions in subsequent code blocks.
+
 # Setup
 Let's define some variables that we'll use in our solutions.
 ```
@@ -85,7 +87,7 @@ gsutil mb gs://$BUCKET_NAME/
 gsutil iam ch allUsers:objectViewer gs://$BUCKET_NAME
 ```
 ##### Configure the sample application for your project
-1. In your local copy of the demo application source repo, edit the file 1optional-kubernetes-engine/config.py1 and change the placeholder `CLOUD_STORAGE_BUCKET = 'your-bucket-name'` to your bucket name `CLOUD_STORAGE_BUCKET = 'cloud-hero-[PROJECT_ID]'`. Remember to substitute your project ID for `[PROJECT_ID]` in this example.
+1. In your local copy of the demo application source repo, edit the file `optional-kubernetes-engine/config.py` and change the placeholder `CLOUD_STORAGE_BUCKET = 'your-bucket-name'` to your bucket name `CLOUD_STORAGE_BUCKET = 'cloud-hero-[PROJECT_ID]'`. Remember to substitute your project ID for `[PROJECT_ID]` in this example.
 ```
 sed -i 's,your-bucket-name,$BUCKET_NAME,g' optional-kubernetes-engine/config.py
 ```
@@ -98,7 +100,7 @@ sed -i 's,your-project-id,$PROJECT_ID,g' optional-kubernetes-engine/config.py
 2. Set the trigger's Dockerfile path to `/optional-kubernetes-engine`
 3. Set the trigger's image name to `gcr.io/$PROJECT_ID/bookshelf:$COMMIT_SHA`
 ```
-gcloud beta builds triggers create cloud-source-repositories --repo="cloudhero-challenge" --branch-pattern="^master$" --dockerfile-dir="/optional-kubernetes-engine" --dockerfile-image="gcr.io/$PROJECT_ID/bookshelf:$COMMIT_SHA"
+gcloud beta builds triggers create cloud-source-repositories --repo="cloudhero-challenge" --branch-pattern="master" --dockerfile="Dockerfile" --dockerfile-dir="/optional-kubernetes-engine" --dockerfile-image="gcr.io/$PROJECT_ID/bookshelf:$COMMIT_SHA"
 ```
 ##### Trigger a build
 1. Commit all file changes made to your local copy of the repo and then push your repo changes:
