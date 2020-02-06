@@ -37,7 +37,7 @@ git push --all google
 sed -i 's,your-bucket-name,$BUCKET_NAME,g' optional-kubernetes-engine/config.py
 sed -i 's,your-project-id,$PROJECT_ID,g' optional-kubernetes-engine/config.py
 
-gcloud beta builds triggers create cloud-source-repositories --repo="cloudhero-challenge" --branch-pattern="^master$" --dockerfile-dir="/optional-kubernetes-engine" --dockerfile-image="gcr.io/$PROJECT_ID/bookshelf:$COMMIT_SHA"
+gcloud beta builds triggers create cloud-source-repositories --repo="cloudhero-challenge" --branch-pattern="master" --dockerfile="Dockerfile" --dockerfile-dir="/optional-kubernetes-engine" --dockerfile-image="gcr.io/$PROJECT_ID/bookshelf:$COMMIT_SHA"
 
 git add .
 git commit -m "Updating project with changes"
